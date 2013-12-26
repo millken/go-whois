@@ -30,6 +30,7 @@ import (
 	"io/ioutil"
 	"net"
 	"strings"
+	"time"
 )
 
 const (
@@ -37,16 +38,28 @@ const (
 	WHOIS_PORT   = "43"
 )
 
-func Whois(query string, params map[string]string) (result string, err error) {
-	var buffer []byte
-	host, port := findHostPort(query, params)
+func Whois(query string) (result string, err error) {
 
-	conn, err := net.Dial("tcp", net.JoinHostPort(host, port))
+	host := findHostPort(query)
+	
+	if strings.HasSuffix(strings.ToLower(query), ".com") {
+		query = fmt.Sprintf("=%s", query)
+	}
+
+	result, err = WhoisByServer(query, host)
+
+	return
+}
+
+func WhoisByServer(domain string, server string) (result string, err error) {
+	var buffer []byte
+	
+	conn, err := net.DialTimeout("tcp", net.JoinHostPort(server, WHOIS_PORT), 3*time.Second)
 	if err != nil {
 		return
 	}
 
-	fmt.Fprintf(conn, "%s\r\n", query)
+	fmt.Fprintf(conn, "%s\r\n", domain)
 
 	buffer, err = ioutil.ReadAll(conn)
 	if err != nil {
@@ -58,19 +71,12 @@ func Whois(query string, params map[string]string) (result string, err error) {
 	return
 }
 
-func findHostPort(query string, params map[string]string) (host, port string) {
-	var ok bool
+func findHostPort(query string) (host string) {
 
-	if host, ok = params["host"]; !ok {
-		fields := strings.Split(query, ".")
-		tld := fields[len(fields)-1]
+	fields := strings.Split(query, ".")
+	tld := fields[len(fields)-1]
 
-		host = fmt.Sprint(tld, WHOIS_DOMAIN)
-	}
-
-	if port, ok = params["port"]; !ok {
-		port = WHOIS_PORT
-	}
+	host = fmt.Sprint(tld, WHOIS_DOMAIN)
 
 	return
 }
