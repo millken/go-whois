@@ -58,7 +58,7 @@ func WhoisByServer(domain string, server string) (result string, err error) {
 	if err != nil {
 		return
 	}
-
+	conn.SetReadDeadline(time.Now().Add(time.Second * 2))
 	fmt.Fprintf(conn, "%s\r\n", domain)
 
 	buffer, err = ioutil.ReadAll(conn)
