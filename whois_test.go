@@ -32,10 +32,9 @@ import (
 
 func TestWhois(t *testing.T) {
 	domain := "example.net"
-	params := make(map[string]string)
 	regex := regexp.MustCompile("(?i)reserved-internet assigned numbers")
 
-	whois, err := Whois(domain, params)
+	whois, err := Whois(domain)
 	if err != nil {
 		t.Fatalf("whois request for %s failed: %v", domain, err)
 	}
