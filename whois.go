@@ -296,6 +296,7 @@ var servers = map[string]string{
 	// vu - Vanuatu - no whois server assigned
 	"wf":  "whois.nic.wf",     // Wallis and Futuna
 	"ws":  "whois.website.ws", // Samoa
+	"win": "whois.nic.win",
 	"xxx": "whois.nic.xxx",
 	// ye - Yemen - no whois server assigned
 	"yt": "whois.nic.yt", // Mayotte
