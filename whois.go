@@ -298,6 +298,7 @@ var servers = map[string]string{
 	"ws":  "whois.website.ws", // Samoa
 	"win": "whois.nic.win",
 	"xxx": "whois.nic.xxx",
+	"xyz": "whois.nic.xyz",
 	// ye - Yemen - no whois server assigned
 	"yt": "whois.nic.yt", // Mayotte
 	"yu": "whois.ripe.net",
