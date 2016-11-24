@@ -87,7 +87,7 @@ var servers = map[string]string{
 	"ck": "whois.nic.ck", // Cook Islands
 	"cl": "whois.nic.cl", // Chile
 	// cm - Cameroon - no whois server assigned
-	"cn":   "whois.cnnic.net.cn", // China
+	"cn":   "whois.cnnic.cn", // China
 	"co":   "whois.nic.co",       // Colombia
 	"com":  "whois.verisign-grs.com",
 	"coop": "whois.nic.coop",
